@@ -1,17 +1,44 @@
-import { Button } from "antd";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
+import HomePage from "./pages/Home";
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
 
 function App() {
-  return (
-    <>
-      <div className="h-screen bg-primary flex items-center justify-center">
-        <div className="bg-white p-5">
-          <h1 className="">SMP</h1>
-          <Button type="primary">My Button</Button>
+  const Layout = () => {
+    return (
+      <div>
+        <h1>Navbar</h1>
+        <div>
+          <Outlet />
         </div>
       </div>
-    </>
-  );
+    );
+  };
+
+  // eslint-disable-next-line no-unused-vars
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <HomePage />,
+        },
+      ],
+    },
+    {
+      path: "login",
+      element: <LoginPage />,
+    },
+    {
+      path: "register",
+      element: <RegisterPage />,
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
