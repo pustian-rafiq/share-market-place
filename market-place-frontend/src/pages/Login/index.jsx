@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Button, Form, Input } from "antd";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { LoginUser } from "../../apiCalls/users";
 import Divider from "../../components/shared/Divider";
 const rules = [
   {
@@ -10,8 +12,15 @@ const rules = [
 ];
 
 const LoginPage = () => {
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log("Success", values);
+    try {
+      const response = await LoginUser(values);
+      console.log(response);
+      toast.success(response.message);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
   return (
     <>

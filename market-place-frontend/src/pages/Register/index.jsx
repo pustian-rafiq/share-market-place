@@ -1,6 +1,7 @@
 import { Button, Divider, Form, Input } from "antd";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-
+import { RegisterUser } from "../../apiCalls/users";
 const rules = [
   {
     required: true,
@@ -8,8 +9,15 @@ const rules = [
   },
 ];
 const RegisterPage = () => {
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log("Success", values);
+    try {
+      const response = await RegisterUser(values);
+      console.log(response);
+      toast.success(response.message);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
   return (
     <>
