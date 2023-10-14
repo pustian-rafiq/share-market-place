@@ -1,5 +1,6 @@
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
+import Header from "./components/Header";
 import ProtectedRoutes from "./components/protectedRoutes";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
@@ -9,7 +10,7 @@ function App() {
   const Layout = () => {
     return (
       <div>
-        <h1>Navbar</h1>
+        <Header />
         <div>
           <Outlet />
         </div>
