@@ -1,5 +1,6 @@
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
+import ProtectedRoutes from "./components/protectedRoutes";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
@@ -24,7 +25,11 @@ function App() {
       children: [
         {
           path: "/",
-          element: <HomePage />,
+          element: (
+            <ProtectedRoutes>
+              <HomePage />
+            </ProtectedRoutes>
+          ),
         },
       ],
     },

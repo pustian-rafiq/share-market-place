@@ -14,10 +14,16 @@ const authMiddleware = async (req, res, next) => {
         next();
       }
     } catch (error) {
-      throw new Error("You are not authorized user");
+      res.send({
+        sucess: false,
+        message: error.message,
+      });
     }
   } else {
-    throw new Error("There is no authorization token. Pleae login first");
+    res.send({
+      sucess: false,
+      message: "There is no authorization token. Pleae login first",
+    });
   }
 };
 

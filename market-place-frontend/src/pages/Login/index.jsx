@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 import { Button, Form, Input } from "antd";
 import toast from "react-hot-toast";
@@ -18,6 +19,11 @@ const LoginPage = () => {
       const response = await LoginUser(values);
       console.log(response);
       toast.success(response.message);
+      const { password, token, ...userDetails } = response.data;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("userInfo", JSON.stringify(userDetails));
+      window.location.href = "/";
     } catch (error) {
       toast.error(error.message);
     }

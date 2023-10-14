@@ -19,3 +19,13 @@ export const LoginUser = async (payload) => {
     return error.message;
   }
 };
+
+// Get Logged in user
+export const GetCurrentUser = async (payload) => {
+  try {
+    const reponse = await axiosInstance.get("/api/users/loggedin", payload);
+    return reponse.data;
+  } catch (error) {
+    return error.message;
+  }
+};

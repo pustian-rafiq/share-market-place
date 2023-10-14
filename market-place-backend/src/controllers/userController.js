@@ -10,6 +10,7 @@ const getLoggedUserController = async (req, res, next) => {
       message: "Loggedin user fetch successfully",
       user,
     });
+  } else {
   }
 };
 
@@ -17,7 +18,7 @@ const getLoggedUserController = async (req, res, next) => {
 const getUserController = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(id).select("-password");
     res.status(200).json({
       status: "success",
       message: "User is fetched successfully",
