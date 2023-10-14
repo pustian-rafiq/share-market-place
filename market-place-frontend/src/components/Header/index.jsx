@@ -6,6 +6,7 @@ const Header = () => {
   const navigate = useNavigate();
   const logoutUser = () => {
     localStorage.removeItem("userInfo");
+    localStorage.removeItem("token");
     navigate("/login");
   };
   useEffect(() => {

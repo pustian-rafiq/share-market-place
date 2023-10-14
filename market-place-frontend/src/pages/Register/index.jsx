@@ -1,7 +1,10 @@
 import { Button, Divider, Form, Input } from "antd";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { RegisterUser } from "../../apiCalls/users";
+import { setLoading } from "../../redux/features/loader.slice";
 const rules = [
   {
     required: true,
@@ -9,16 +12,31 @@ const rules = [
   },
 ];
 const RegisterPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const onFinish = async (values) => {
     console.log("Success", values);
     try {
+      dispatch(setLoading(true));
       const response = await RegisterUser(values);
       console.log(response);
-      toast.success(response.message);
+      if (response.success) {
+        dispatch(setLoading(false));
+        toast.success(response.message);
+        navigate("/login");
+      } else {
+        dispatch(setLoading(false));
+      }
     } catch (error) {
+      dispatch(setLoading(false));
       toast.error(error.message);
     }
   };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, []);
   return (
     <>
       <div className="h-screen bg-primary flex items-center justify-center">
