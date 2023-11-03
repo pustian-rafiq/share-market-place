@@ -6,6 +6,7 @@ import ProtectedRoutes from "./components/protectedRoutes";
 import Loader from "./components/shared/Loader";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
+import ProfilePage from "./pages/Profile";
 import RegisterPage from "./pages/Register";
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
     return (
       <div>
         <Header />
-        <div>
+        <div className="p-5">
           <Outlet />
         </div>
       </div>
@@ -32,6 +33,14 @@ function App() {
           element: (
             <ProtectedRoutes>
               <HomePage />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "/profile",
+          element: (
+            <ProtectedRoutes>
+              <ProfilePage />
             </ProtectedRoutes>
           ),
         },

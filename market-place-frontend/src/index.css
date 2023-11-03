@@ -8,14 +8,17 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
+  /* color: #373737; */
+  font-size: 15px;
 }
 
 /* Customize ant design style */
-input {
+input, select, textarea{
   height: 45px !important;
   border: 1px solid #b9b9b9 !important;
+  width: 100% !important;
 }
-input:focus {
+input:focus, select:focus, textarea:focus{
   outline: none !important;
   border: 1px solid #b9b9b9 !important;
   box-shadow: none !important;

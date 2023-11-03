@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GetCurrentUser } from "../../apiCalls/users";
 import { setLoading } from "../../redux/features/loader.slice";
+import { setUser } from "../../redux/features/users.slice";
 
 const ProtectedRoutes = ({ children }) => {
   const dispatch = useDispatch();
-  const [user, setUser] = useState(null);
+  const { user } = useSelector((state) => state.user);
+  // const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const validateToken = async () => {
     try {
-      dispatch(setLoading(true));
+      //This setLoading gets multiple times call the api
+      // dispatch(setLoading(true));
       const response = await GetCurrentUser();
-      console.log("GetCurrentUser", response.user);
+      console.log("GetCurrentUser", response);
+      dispatch(setLoading(false));
       if (response.success) {
-        dispatch(setLoading(false));
-        setUser(response.user);
+        // dispatch(setLoading(false));
+        dispatch(setUser(response.user));
       } else {
-        dispatch(setLoading(false));
+        // dispatch(setLoading(false));
         navigate("/login");
         toast.error(response.message);
       }
