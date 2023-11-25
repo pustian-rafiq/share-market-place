@@ -26,3 +26,7 @@ input:focus, select:focus, textarea:focus{
 button {
   height: 45px !important;
 }
+table{
+  border: 1px solid #a1a1a1 !important;
+  border-radius: 2px;
+}

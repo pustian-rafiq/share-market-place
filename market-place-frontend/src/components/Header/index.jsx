@@ -12,8 +12,6 @@ const Header = () => {
     navigate("/login");
   };
 
-  console.log("user 111", user);
-
   return (
     <div className="flex justify-between items-center bg-primary p-5">
       <h1 className="text-2xl text-white">SHARE MARKET</h1>
