@@ -24,6 +24,29 @@ const addProduct = async (req, res, next) => {
   }
 };
 
+// Edit product
+const editProduct = async (req, res, next) => {
+  try {
+    const result = await Product.findByIdAndUpdate(req.params.id, req.body);
+    if (result) {
+      res.send({
+        success: true,
+        message: "Product updatd successfully",
+      });
+    } else {
+      res.send({
+        success: false,
+        message: "Product not updated",
+      });
+    }
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 // Get all product
 const getProducts = async (req, res) => {
   try {
@@ -74,8 +97,32 @@ const getProduct = async (req, res) => {
   }
 };
 
+// Delete product
+const deleteProduct = async (req, res, next) => {
+  try {
+    const result = await Product.findByIdAndDelete(req.params.id);
+    if (result) {
+      res.send({
+        success: true,
+        message: "Product deleted successfully",
+      });
+    } else {
+      res.send({
+        success: false,
+        message: "Product not updated",
+      });
+    }
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 module.exports = {
   addProduct,
   getProducts,
   getProduct,
+  editProduct,
+  deleteProduct,
 };

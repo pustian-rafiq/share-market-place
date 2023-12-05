@@ -11,6 +11,10 @@ const getLoggedUserController = async (req, res, next) => {
       user,
     });
   } else {
+    res.send({
+      success: false,
+      message: "Loggedin user not fetch",
+    });
   }
 };
 

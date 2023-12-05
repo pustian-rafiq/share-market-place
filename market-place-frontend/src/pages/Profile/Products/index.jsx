@@ -1,13 +1,14 @@
 import { Button, Table, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { GetProducts } from "../../../apiCalls/productsApi";
+import { DeleteProduct, GetProducts } from "../../../apiCalls/productsApi";
 import { setLoading } from "../../../redux/features/loader.slice";
 import ProductForm from "./ProductForm";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [showProductForm, setShowProductForm] = useState(false);
+  const [editProduct, setEditProduct] = useState(null);
   const dispatch = useDispatch();
   const columns = [
     {
@@ -37,6 +38,25 @@ const Products = () => {
     {
       title: "Action",
       dataIndex: "action",
+      render: (text, record) => {
+        return (
+          <div className="flex gap-5">
+            <i
+              className="ri-delete-bin-line cursor-pointer"
+              onClick={() => {
+                deleteProductHandler(record._id);
+              }}
+            ></i>
+            <i
+              className="ri-pencil-line cursor-pointer"
+              onClick={() => {
+                setEditProduct(record);
+                setShowProductForm(true);
+              }}
+            ></i>
+          </div>
+        );
+      },
     },
   ];
   const getProductsData = async () => {
@@ -53,7 +73,20 @@ const Products = () => {
       message.error(error.message);
     }
   };
+  const deleteProductHandler = async (id) => {
+    try {
+      dispatch(setLoading(true));
 
+      const response = await DeleteProduct(id);
+      if (response.success) {
+        message.success(response.message);
+        dispatch(setLoading(false));
+      }
+    } catch (error) {
+      dispatch(setLoading(false));
+      message.error(error.message);
+    }
+  };
   useEffect(() => {
     console.log("useEffect() called");
     getProductsData();
@@ -72,6 +105,8 @@ const Products = () => {
         <ProductForm
           showProductForm={showProductForm}
           setShowProductForm={setShowProductForm}
+          editProduct={editProduct}
+          getProductsData={getProductsData}
         />
       )}
     </div>

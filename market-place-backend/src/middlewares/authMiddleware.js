@@ -15,13 +15,13 @@ const authMiddleware = async (req, res, next) => {
       }
     } catch (error) {
       res.send({
-        sucess: false,
+        success: false,
         message: error.message,
       });
     }
   } else {
     res.send({
-      sucess: false,
+      success: false,
       message: "There is no authorization token. Pleae login first",
     });
   }

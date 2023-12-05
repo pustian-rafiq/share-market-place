@@ -16,17 +16,19 @@ const ProtectedRoutes = ({ children }) => {
       //This setLoading gets multiple times call the api
       // dispatch(setLoading(true));
       const response = await GetCurrentUser();
-
+      console.log(response);
       dispatch(setLoading(false));
       if (response.success) {
         dispatch(setLoading(false));
         dispatch(setUser(response.user));
       } else {
         // dispatch(setLoading(false));
+        localStorage.clear();
         navigate("/login");
         toast.error(response.message);
       }
     } catch (error) {
+      localStorage.clear();
       dispatch(setLoading(false));
       navigate("/login");
       toast.error(error.message);

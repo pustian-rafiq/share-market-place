@@ -42,6 +42,7 @@ const LoginPage = () => {
   };
   useEffect(() => {
     if (localStorage.getItem("token")) {
+      console.log("object is already loaded");
       navigate("/");
     }
   }, []);
